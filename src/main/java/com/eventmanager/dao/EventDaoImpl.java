@@ -13,7 +13,7 @@ public class EventDaoImpl extends AbstractDao<Integer, Event> implements EventDa
     public Event findById(int id) {
         Event event = getByKey(id);
         if (event != null) {
-            initializeCollection(event.getReservtions());
+            initializeCollection(event.getReservations());
         }
 
         return event;
@@ -30,8 +30,8 @@ public class EventDaoImpl extends AbstractDao<Integer, Event> implements EventDa
 
     public List<Event> findEventsByPartner(Partner partner) {
         List<Event> events = getEntityManager()
-                .createQuery("SELECT e FROM Event e WHERE e.partner_id LIKE :partner_id ORDER BY e.name ASC")
-                .setParameter("partner_id", partner.getId())
+                .createQuery("SELECT e FROM Event e WHERE e.partner LIKE :partner ORDER BY e.name ASC")
+                .setParameter("partner", partner)
                 .getResultList();
 
         return events;
@@ -43,7 +43,7 @@ public class EventDaoImpl extends AbstractDao<Integer, Event> implements EventDa
 
     public void deleteById(Integer id) {
         Event event = (Event) getEntityManager()
-                .createQuery("SELECT e FROM Event e WHERE u.id LIKE :id")
+                .createQuery("SELECT e FROM Event e WHERE e.id LIKE :id")
                 .setParameter("id", id)
                 .getSingleResult();
         delete(event);

@@ -20,7 +20,7 @@ public class ReservationDaoImpl extends AbstractDao<Integer, Reservation> implem
         Reservation reservation = (Reservation) getEntityManager()
                 .createQuery("SELECT r FROM Reservation r WHERE r.uuid LIKE :uuid ORDER BY r.id ASC")
                 .setParameter("uuid", uuid)
-                .getResultList();
+                .getSingleResult();
 
         return reservation;
     }
@@ -36,8 +36,8 @@ public class ReservationDaoImpl extends AbstractDao<Integer, Reservation> implem
 
     public List<Reservation> findReservationsByEvent(Event event) {
         List<Reservation> reservations = getEntityManager()
-                .createQuery("SELECT r FROM Reservation r WHERE r.event_id LIKE :event_id ORDER BY r.id ASC")
-                .setParameter("event_id", event.getId())
+                .createQuery("SELECT r FROM Reservation r WHERE r.event LIKE :event ORDER BY r.id ASC")
+                .setParameter("event", event)
                 .getResultList();
 
         return reservations;
