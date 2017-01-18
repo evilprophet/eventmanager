@@ -56,9 +56,9 @@
                     <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Tickets</th>
-                        <th>Price</th>
-                        <th>Date</th>
+                        <th class="col-xs-1">Tickets</th>
+                        <th class="col-xs-1">Price</th>
+                        <th class="col-xs-2">Date</th>
                         <th class="col-xs-1">Action</th>
                     </tr>
                     </thead>
