@@ -54,16 +54,22 @@
                     <thead>
                     <tr>
                         <th>Name</th>
-                        <th class="col-xs-2">Action</th>
+                        <th>Tickets</th>
+                        <th>Price</th>
+                        <th>Date</th>
+                        <th class="col-xs-1">Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach items="${events}" var="event">
                         <tr>
                             <td>${event.name}</td>
+                            <td>${event.freeAmount}/${event.amount}</td>
+                            <td>${event.price}</td>
+                            <td>${event.eventDate}</td>
                             <td>
-                                <a class="btn btn-default" data-dismiss="modal" aria-label="Close" href=<c:url
-                                        value='/events/${event.id}'/>>Select</a>
+                                <a class="btn btn-default" data-dismiss="modal" aria-label="Close"
+                                   href=<c:url value='/events/${event.id}'/>>Select</a>
                             </td>
                         </tr>
                     </c:forEach>

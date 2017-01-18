@@ -1,9 +1,7 @@
 package com.eventmanager.controller.client;
 
 import com.eventmanager.model.Event;
-import com.eventmanager.model.Partner;
 import com.eventmanager.service.EventService;
-import com.eventmanager.service.PartnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -16,13 +14,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import java.util.List;
 
 @Controller
-@RequestMapping("/partners")
+@RequestMapping("/events")
 @SessionAttributes("roles")
-public class PartnerController {
-
-    @Autowired
-    private
-    PartnerService partnerService;
+public class EventController {
 
     @Autowired
     private
@@ -33,20 +27,17 @@ public class PartnerController {
 
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
     public String indexAction(ModelMap model) {
+        List<Event> events = eventService.findAllEvents();
+        model.addAttribute("events", events);
 
-        List<Partner> partners = partnerService.findAllPartners();
-        model.addAttribute("partners", partners);
-
-        return "client/partner/index";
+        return "client/event/index";
     }
 
     @RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
     public String showAction(@PathVariable Integer id, ModelMap model) {
-        Partner partner = partnerService.findById(id);
-        List<Event> events = eventService.findEventsByPartner(partner);
-        model.addAttribute("partner", partner);
-        model.addAttribute("events", events);
+        Event event = eventService.findById(id);
+        model.addAttribute("event", event);
 
-        return "client/partner/show";
+        return "client/event/show";
     }
 }

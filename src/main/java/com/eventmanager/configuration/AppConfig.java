@@ -1,7 +1,5 @@
 package com.eventmanager.configuration;
 
-import com.eventmanager.converter.RoleToUserProfileConverter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -19,9 +17,9 @@ import org.springframework.web.servlet.view.JstlView;
 @ComponentScan(basePackages = "com.eventmanager")
 public class AppConfig extends WebMvcConfigurerAdapter {
 
-    @Autowired
-    private
-    RoleToUserProfileConverter roleToUserProfileConverter;
+//    @Autowired
+//    private
+//    RoleToUserProfileConverter roleToUserProfileConverter;
 
     /**
      * Configure ViewResolvers to deliver preferred views.
@@ -49,7 +47,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
      */
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(roleToUserProfileConverter);
+        //registry.addConverter(roleToUserProfileConverter);
     }
 
     /**
