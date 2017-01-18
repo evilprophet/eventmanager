@@ -63,8 +63,8 @@ public class Reservation implements Serializable {
 
     public void setEvent(Event event) {
         this.event = event;
-        if (!event.getReservtions().contains(this)) { // warning this may cause performance issues if you have a large data set since this operation is O(n)
-            event.getReservtions().add(this);
+        if (!event.getReservations().contains(this)) { // warning this may cause performance issues if you have a large data set since this operation is O(n)
+            event.getReservations().add(this);
         }
     }
 
@@ -78,6 +78,10 @@ public class Reservation implements Serializable {
 
     public String getReservationKey() {
         return reservationKey;
+    }
+
+    public void setReservationKey(String reservationKey) {
+        this.reservationKey = reservationKey;
     }
 
     public String getFirstName() {
@@ -130,6 +134,10 @@ public class Reservation implements Serializable {
 
     public Boolean getConfirmed() {
         return confirmed;
+    }
+
+    public void setConfirmed(Boolean confirmed) {
+        this.confirmed = confirmed;
     }
 
     public void confirm() {

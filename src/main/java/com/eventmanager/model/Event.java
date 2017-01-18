@@ -43,7 +43,7 @@ public class Event implements Serializable {
     @Column(name = "event_date", nullable = false)
     private Date eventDate;
 
-    @OneToMany(mappedBy="partners")
+    @OneToMany(mappedBy="event")
     private List<Reservation> reservations;
 
     public Integer getId() {
@@ -109,7 +109,7 @@ public class Event implements Serializable {
         this.eventDate = eventDate;
     }
 
-    public List<Reservation> getReservtions() {
+    public List<Reservation> getReservations() {
         return reservations;
     }
 
