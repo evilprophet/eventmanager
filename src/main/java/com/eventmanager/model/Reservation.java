@@ -46,8 +46,8 @@ public class Reservation implements Serializable {
     private Integer amount;
 
     @NotEmpty
-    @Column(name = "price", nullable = false)
-    private Float price;
+    @Column(name = "final_price", nullable = false)
+    private Float finalPrice;
 
     @NotEmpty
     @Column(name = "confirmed", nullable = false)
@@ -124,12 +124,12 @@ public class Reservation implements Serializable {
         this.amount = amount;
     }
 
-    public Float getPrice() {
-        return price;
+    public Float getFinalPrice() {
+        return finalPrice;
     }
 
-    public void setPrice(Float price) {
-        this.price = price;
+    public void setFinalPrice(Float finalPrice) {
+        this.finalPrice = finalPrice;
     }
 
     public Boolean getConfirmed() {
@@ -181,6 +181,6 @@ public class Reservation implements Serializable {
         return "Reservation [id=" + id + "event= " + "(" + event.getId() + ")" + event.getName()
                 + ", uuid=" + uuid + ", reservationKey=" + reservationKey
                 + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", telephone=" + telephone
-                + ", amount=" + amount + ", price=" + price + ", confirmed=" + confirmed + "]";
+                + ", amount=" + amount + ", finalPrice=" + finalPrice + ", confirmed=" + confirmed + "]";
     }
 }

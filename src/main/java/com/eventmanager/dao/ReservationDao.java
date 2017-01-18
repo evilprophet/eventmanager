@@ -13,7 +13,7 @@ public interface ReservationDao {
 
     void save(Reservation partner);
 
-    void deleteById(Integer id);
+    void deleteById(int id);
 
     List<Reservation> findAllReservations();
 

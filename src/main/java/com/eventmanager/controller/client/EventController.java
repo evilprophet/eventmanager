@@ -25,9 +25,9 @@ public class EventController {
     @Autowired
     MessageSource messageSource;
 
-    @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"", "/", "/index"}, method = RequestMethod.GET)
     public String indexAction(ModelMap model) {
-        List<Event> events = eventService.findAllEvents();
+        List<Event> events = eventService.findAvailableEvents();
         model.addAttribute("events", events);
 
         return "client/event/index";
@@ -36,6 +36,9 @@ public class EventController {
     @RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
     public String showAction(@PathVariable Integer id, ModelMap model) {
         Event event = eventService.findById(id);
+        if (event == null || !event.isAvailable())
+            return "redirect:/";
+
         model.addAttribute("event", event);
 
         return "client/event/show";

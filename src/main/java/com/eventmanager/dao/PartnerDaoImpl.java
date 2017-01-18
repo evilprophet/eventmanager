@@ -20,18 +20,16 @@ public class PartnerDaoImpl extends AbstractDao<Integer, Partner> implements Par
 
     @SuppressWarnings("unchecked")
     public List<Partner> findAllPartners() {
-        List<Partner> partners = getEntityManager()
+        return (List<Partner>) getEntityManager()
                 .createQuery("SELECT p FROM Partner p ORDER BY p.name ASC")
                 .getResultList();
-
-        return partners;
     }
 
     public void save(Partner partner) {
         persist(partner);
     }
 
-    public void deleteById(Integer id) {
+    public void deleteById(int id) {
         Partner partner = (Partner) getEntityManager()
                 .createQuery("SELECT p FROM Partner p WHERE p.id LIKE :id")
                 .setParameter("id", id)

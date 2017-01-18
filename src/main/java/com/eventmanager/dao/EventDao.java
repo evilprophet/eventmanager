@@ -11,11 +11,15 @@ public interface EventDao {
 
     void save(Event event);
 
-    void deleteById(Integer id);
+    void deleteById(int id);
 
     List<Event> findAllEvents();
 
+    List<Event> findAvailableEvents();
+
     List<Event> findEventsByPartner(Partner partner);
+
+    List<Event> findAvailableEventsByPartner(Partner partner);
 
 }
 

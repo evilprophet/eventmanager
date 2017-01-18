@@ -5,7 +5,9 @@
     <article class="container-fluid">
         <div class="panel panel-default">
             <div class="panel-heading clearfix">
-                Partners
+                <h4 class="col-md-1">Partners</h4>
+                <a class="btn btn-default btn-lg pull-right" data-dismiss="modal" aria-label="Close"
+                   href=<c:url value='/'/>>Back</a>
             </div>
             <div class="panel-body">
                 <table class="table table-bordered table-striped table-hover">
@@ -20,7 +22,7 @@
                         <tr>
                             <td>${partner.name}</td>
                             <td>
-                                <a class="btn btn-default" data-dismiss="modal" aria-label="Close"
+                                <a class="btn btn-info" data-dismiss="modal" aria-label="Close"
                                    href=<c:url value='/partners/${partner.id}'/>>Select</a>
                             </td>
                         </tr>

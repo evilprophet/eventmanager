@@ -5,7 +5,9 @@
     <article class="container-fluid">
         <div class="panel panel-default">
             <div class="panel-heading clearfix">
-                Details
+                <h4 class="col-md-1">Details</h4>
+                <a class="btn btn-default btn-lg pull-right" data-dismiss="modal" aria-label="Close"
+                   href=<c:url value='/partners'/>>Back</a>
             </div>
             <div class="panel-body">
                 <form class="form-horizontal">
@@ -47,7 +49,7 @@
     <article class="container-fluid">
         <div class="panel panel-default">
             <div class="panel-heading clearfix">
-                Events for partner
+                <h4 class="col-md-2">Events for partner</h4>
             </div>
             <div class="panel-body">
                 <table class="table table-bordered table-striped table-hover">
@@ -68,7 +70,7 @@
                             <td>${event.price}</td>
                             <td>${event.eventDate}</td>
                             <td>
-                                <a class="btn btn-default" data-dismiss="modal" aria-label="Close"
+                                <a class="btn btn-info" data-dismiss="modal" aria-label="Close"
                                    href=<c:url value='/events/${event.id}'/>>Select</a>
                             </td>
                         </tr>

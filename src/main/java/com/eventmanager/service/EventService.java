@@ -7,15 +7,19 @@ import java.util.List;
 
 public interface EventService {
 
-    Event findById(int id);
-
     void saveEvent(Event user);
 
     void updateEvent(Event user);
 
-    void deleteEventById(Integer id);
+    void deleteEventById(int id);
+
+    Event findById(int id);
 
     List<Event> findAllEvents();
 
+    List<Event> findAvailableEvents();
+
     List<Event> findEventsByPartner(Partner partner);
+
+    List<Event> findAvailableEventsByPartner(Partner partner);
 }

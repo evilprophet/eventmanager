@@ -10,7 +10,7 @@ public interface PartnerDao {
 
     void save(Partner partner);
 
-    void deleteById(Integer id);
+    void deleteById(int id);
 
     List<Partner> findAllPartners();
 

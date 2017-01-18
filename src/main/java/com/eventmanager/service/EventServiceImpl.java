@@ -16,16 +16,6 @@ public class EventServiceImpl implements EventService {
     @Autowired
     private EventDao dao;
 
-    public Event findById(int id) {
-        return dao.findById(id);
-    }
-
-    public List<Event> findEventsByPartner(Partner partner) {
-        List<Event> events = dao.findEventsByPartner(partner);
-
-        return events;
-    }
-
     public void saveEvent(Event event) {
         dao.save(event);
     }
@@ -47,12 +37,28 @@ public class EventServiceImpl implements EventService {
         }
     }
 
-    public void deleteEventById(Integer id) {
+    public void deleteEventById(int id) {
         dao.deleteById(id);
+    }
+
+    public Event findById(int id) {
+        return dao.findById(id);
     }
 
     public List<Event> findAllEvents() {
         return dao.findAllEvents();
+    }
+
+    public List<Event> findAvailableEvents() {
+        return dao.findAvailableEvents();
+    }
+
+    public List<Event> findEventsByPartner(Partner partner) {
+        return dao.findEventsByPartner(partner);
+    }
+
+    public List<Event> findAvailableEventsByPartner(Partner partner) {
+        return dao.findAvailableEventsByPartner(partner);
     }
 
 }

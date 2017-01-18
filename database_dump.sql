@@ -51,6 +51,8 @@ CREATE TABLE IF NOT EXISTS `events` (
   `free_amount` int(11) NOT NULL,
   `price` double NOT NULL,
   `event_date` datetime NOT NULL,
+  `published_at` datetime NOT NULL,
+  `closed_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_5387574A9393F8FE` (`partner_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
@@ -89,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `reservations` (
   `telephone` varchar(255) COLLATE utf8_general_ci NOT NULL,
   `confirmed` tinyint(1) NOT NULL,
   `amount` int(11) NOT NULL,
-  `price` double NOT NULL,
+  `finalPrice` double NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_4DA239D17F50A6` (`uuid`),
   UNIQUE KEY `UNIQ_4DA239DF928676` (`reservation_key`),

@@ -15,10 +15,6 @@ public class PartnerServiceImpl implements PartnerService {
     @Autowired
     private PartnerDao dao;
 
-    public Partner findById(int id) {
-        return dao.findById(id);
-    }
-
     public void savePartner(Partner partner) {
         dao.save(partner);
     }
@@ -40,8 +36,12 @@ public class PartnerServiceImpl implements PartnerService {
         }
     }
 
-    public void deletePartnerById(Integer id) {
+    public void deletePartnerById(int id) {
         dao.deleteById(id);
+    }
+
+    public Partner findById(int id) {
+        return dao.findById(id);
     }
 
     public List<Partner> findAllPartners() {

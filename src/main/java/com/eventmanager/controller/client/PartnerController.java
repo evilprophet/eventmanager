@@ -31,9 +31,8 @@ public class PartnerController {
     @Autowired
     MessageSource messageSource;
 
-    @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"", "/", "/index"}, method = RequestMethod.GET)
     public String indexAction(ModelMap model) {
-
         List<Partner> partners = partnerService.findAllPartners();
         model.addAttribute("partners", partners);
 
@@ -43,7 +42,11 @@ public class PartnerController {
     @RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
     public String showAction(@PathVariable Integer id, ModelMap model) {
         Partner partner = partnerService.findById(id);
-        List<Event> events = eventService.findEventsByPartner(partner);
+        if (partner == null)
+            return "redirect:/partners";
+
+        Event event = eventService.findById(id);
+        List<Event> events = eventService.findAvailableEventsByPartner(partner);
         model.addAttribute("partner", partner);
         model.addAttribute("events", events);
 

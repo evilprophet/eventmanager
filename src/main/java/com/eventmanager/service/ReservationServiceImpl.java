@@ -16,20 +16,6 @@ public class ReservationServiceImpl implements ReservationService {
     @Autowired
     private ReservationDao dao;
 
-    public Reservation findById(int id) {
-        return dao.findById(id);
-    }
-
-    public Reservation findByUuid(String uuid) {
-        return dao.findByUuid(uuid);
-    }
-
-    public List<Reservation> findReservationsByEvent(Event event) {
-        List<Reservation> reservations = dao.findReservationsByEvent(event);
-
-        return reservations;
-    }
-
     public void saveReservation(Reservation reservation) {
         dao.save(reservation);
     }
@@ -50,17 +36,29 @@ public class ReservationServiceImpl implements ReservationService {
             entity.setEmail(reservation.getEmail());
             entity.setTelephone(reservation.getTelephone());
             entity.setAmount(reservation.getAmount());
-            entity.setPrice(reservation.getPrice());
+            entity.setFinalPrice(reservation.getFinalPrice());
             entity.setConfirmed(reservation.getConfirmed());
         }
     }
 
-    public void deleteReservationById(Integer id) {
+    public void deleteReservationById(int id) {
         dao.deleteById(id);
+    }
+
+    public Reservation findById(int id) {
+        return dao.findById(id);
+    }
+
+    public Reservation findByUuid(String uuid) {
+        return dao.findByUuid(uuid);
     }
 
     public List<Reservation> findAllReservations() {
         return dao.findAllReservations();
+    }
+
+    public List<Reservation> findReservationsByEvent(Event event) {
+        return dao.findReservationsByEvent(event);
     }
 
 }

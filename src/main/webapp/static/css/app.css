@@ -36,3 +36,7 @@ body, .form-control {
 body {
     padding-top: 20px;
 }
+
+.table tr, .table td, .table th {
+    text-align: center;
+}

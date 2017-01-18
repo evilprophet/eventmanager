@@ -11,43 +11,36 @@ import java.util.List;
 public class ReservationDaoImpl extends AbstractDao<Integer, Reservation> implements ReservationDao {
 
     public Reservation findById(int id) {
-        Reservation reservation = getByKey(id);
-
-        return reservation;
+        return getByKey(id);
     }
 
     public Reservation findByUuid(String uuid) {
-        Reservation reservation = (Reservation) getEntityManager()
+        return (Reservation) getEntityManager()
                 .createQuery("SELECT r FROM Reservation r WHERE r.uuid LIKE :uuid ORDER BY r.id ASC")
                 .setParameter("uuid", uuid)
                 .getSingleResult();
-
-        return reservation;
     }
 
     @SuppressWarnings("unchecked")
     public List<Reservation> findAllReservations() {
-        List<Reservation> reservations = getEntityManager()
+        return (List<Reservation>) getEntityManager()
                 .createQuery("SELECT r FROM Reservation r ORDER BY u.id ASC")
                 .getResultList();
-
-        return reservations;
     }
 
+    @SuppressWarnings("unchecked")
     public List<Reservation> findReservationsByEvent(Event event) {
-        List<Reservation> reservations = getEntityManager()
+        return (List<Reservation>) getEntityManager()
                 .createQuery("SELECT r FROM Reservation r WHERE r.event LIKE :event ORDER BY r.id ASC")
                 .setParameter("event", event)
                 .getResultList();
-
-        return reservations;
     }
 
     public void save(Reservation reservation) {
         persist(reservation);
     }
 
-    public void deleteById(Integer id) {
+    public void deleteById(int id) {
         Reservation reservation = (Reservation) getEntityManager()
                 .createQuery("SELECT r FROM Reservation r WHERE r.id LIKE :id")
                 .setParameter("id", id)

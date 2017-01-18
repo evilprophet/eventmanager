@@ -43,7 +43,15 @@ public class Event implements Serializable {
     @Column(name = "event_date", nullable = false)
     private Date eventDate;
 
-    @OneToMany(mappedBy="event")
+    @NotEmpty
+    @Column(name = "published_at", nullable = false)
+    private Date publishedAt;
+
+    @NotEmpty
+    @Column(name = "closed_at", nullable = false)
+    private Date closedAt;
+
+    @OneToMany(mappedBy = "event")
     private List<Reservation> reservations;
 
     public Integer getId() {
@@ -109,6 +117,22 @@ public class Event implements Serializable {
         this.eventDate = eventDate;
     }
 
+    public Date getPublishedAt() {
+        return publishedAt;
+    }
+
+    public void setPublishedAt(Date publishedAt) {
+        this.publishedAt = publishedAt;
+    }
+
+    public Date getClosedAt() {
+        return closedAt;
+    }
+
+    public void setClosedAt(Date closedAt) {
+        this.closedAt = closedAt;
+    }
+
     public List<Reservation> getReservations() {
         return reservations;
     }
@@ -118,6 +142,11 @@ public class Event implements Serializable {
         if (reservation.getEvent() != this) {
             reservation.setEvent(this);
         }
+    }
+
+    public Boolean isAvailable() {
+        Date now = new Date();
+        return freeAmount > 0 && now.after(publishedAt) && now.before(closedAt);
     }
 
     @Override
@@ -154,9 +183,9 @@ public class Event implements Serializable {
     @Override
     public String toString() {
         return "Event [id=" + id + "partner= " + "(" + partner.getId() + ")" + partner.getName()
-                + ", name=" + name + ", description=" + description
-                + ", amount=" + amount + ", freeAmount=" + freeAmount
-                + ", price=" + price + ", eventDate=" + eventDate.toString() + "]";
+                + ", name=" + name + ", description=" + description + ", amount=" + amount
+                + ", freeAmount=" + freeAmount + ", price=" + price + ", eventDate=" + eventDate.toString()
+                + ", publishedAt=" + publishedAt.toString() + ", closedAt=" + closedAt.toString() + "]";
     }
 
 }
