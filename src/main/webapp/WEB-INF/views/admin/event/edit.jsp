@@ -119,6 +119,7 @@
         });
         $('#eventDate, #publishedAt, #closedAt').datetimepicker({
             format:'Y-m-d H:i',
+            startDate: new Date(),
             mask: true
         });
         $('#amount').bind('change paste keyup', function () {

@@ -112,6 +112,7 @@
         });
         $('#eventDate, #publishedAt, #closedAt').datetimepicker({
             format:'Y-m-d H:i',
+            startDate: new Date(),
             mask: true
         });
     </script>
