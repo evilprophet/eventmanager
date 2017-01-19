@@ -24,6 +24,8 @@
                             <td>
                                 <a class="btn btn-primary" data-dismiss="modal" aria-label="Close"
                                    href=<c:url value='/admin/partners/${partner.id}'/>>Show</a>
+                                <a class="btn btn-success" data-dismiss="modal" aria-label="Close"
+                                   href=<c:url value='/admin/partners/${partner.id}/edit'/>>Edit</a>
                                 <a class="btn btn-danger" data-dismiss="modal" aria-label="Close"
                                    href=<c:url value='/admin/partners/${partner.id}/delete'/>>Delete</a>
                             </td>

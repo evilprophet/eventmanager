@@ -7,17 +7,18 @@ import com.eventmanager.service.PartnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller("AdminPartnerController")
 @RequestMapping("/admin/partners")
-@SessionAttributes("roles")
 public class PartnerController {
 
     @Autowired
@@ -55,7 +56,18 @@ public class PartnerController {
 
         model.addAttribute("partner", partner);
 
-        return "admin/partner/show";
+        return "admin/partner/edit";
+    }
+
+    @RequestMapping(value = {"/{id}/edit"}, method = RequestMethod.POST)
+    public String updateAction(@Valid Partner partner, BindingResult result, ModelMap model, @PathVariable Integer id) {
+        if (result.hasErrors())
+            return "admin/partner/edit";
+
+        partnerService.updatePartner(partner);
+
+        model.addAttribute("success", "Partner " + partner.getName() + " updated successfully");
+        return "redirect:/admin/partners/" + partner.getId();
     }
 
     @RequestMapping(value = {"/{id}/delete"}, method = RequestMethod.GET)

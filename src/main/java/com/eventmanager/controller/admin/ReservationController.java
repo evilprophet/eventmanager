@@ -14,7 +14,6 @@ import java.util.List;
 
 @Controller("AdminReservationController")
 @RequestMapping("/admin/reservations")
-@SessionAttributes("roles")
 public class ReservationController {
 
     @Autowired

@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller("ClientAppController")
 @RequestMapping("/")
-@SessionAttributes("roles")
 public class AppController {
 
     @RequestMapping(value = {"", "/index"}, method = RequestMethod.GET)

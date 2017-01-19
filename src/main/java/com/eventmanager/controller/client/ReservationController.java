@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller("ClientReservationController")
 @RequestMapping("/reservations")
-@SessionAttributes("roles")
 public class ReservationController {
 
     @Autowired

@@ -1,5 +1,6 @@
 <%@ taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <rapid:override name="pageTitle">Event - ${event.name}</rapid:override>
 <rapid:override name="content">
     <article class="container-fluid">
@@ -10,64 +11,101 @@
                    href=<c:url value='/admin/events'/>>Back</a>
             </div>
             <div class="panel-body">
-                <form class="form-horizontal">
+                <form:form method="POST" modelAttribute="event" class="form-horizontal">
+                    <form:input type="hidden" path="id" id="id"/>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Id</label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-5">
                             <p class="form-control-static">${event.id}</p>
                         </div>
-                        <label class="col-sm-2 control-label">Partner</label>
-                        <div class="col-sm-10">
-                            <p class="form-control-static">
-                                    ${event.partner.name}
-                                <a class="btn btn-info btn-xs" data-dismiss="modal" aria-label="Close"
-                                   href=<c:url value='/partners/${event.partner.id}'/>>Details</a>
-                            </p>
-                        </div>
-                        <label class="col-sm-2 control-label">Name</label>
-                        <div class="col-sm-10">
-                            <p class="form-control-static">${event.name}</p>
-                        </div>
-                        <label class="col-sm-2 control-label">Description</label>
-                        <div class="col-sm-10">
-                            <p class="form-control-static">${event.description}</p>
-                        </div>
-                        <label class="col-sm-2 control-label">Tickets</label>
-                        <div class="col-sm-10">
-                            <p class="form-control-static">${event.freeAmount}/${event.amount}</p>
-                        </div>
-                        <label class="col-sm-2 control-label">Price</label>
-                        <div class="col-sm-10">
-                            <p class="form-control-static">${event.price}</p>
-                        </div>
-                        <label class="col-sm-2 control-label">Date</label>
-                        <div class="col-sm-10">
-                            <p class="form-control-static">${event.eventDate}</p>
-                        </div>
-                        <label class="col-sm-2 control-label">Publishing Date</label>
-                        <div class="col-sm-10">
-                            <p class="form-control-static">${event.publishedAt}</p>
-                        </div>
-                        <label class="col-sm-2 control-label">Closing Date</label>
-                        <div class="col-sm-10">
-                            <p class="form-control-static">${event.closedAt}</p>
-                        </div>
-                        <label class="col-sm-2 control-label">Available</label>
-                        <div class="col-sm-10">
-                            <p class="form-control-static">
-                                <c:choose>
-                                    <c:when test="${event.isAvailable()}">
-                                        <span class="label label-success">Yes</span>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <span class="label label-warning">No</span>
-                                    </c:otherwise>
-                                </c:choose>
-                            </p>
                     </div>
-                </form>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Partner</label>
+                        <div class="col-sm-5">
+                            <form:select path="partner" items="${partners}" itemValue="id" itemLabel="name" class="form-control input-sm" />
+                            <div class="has-error">
+                                <form:errors path="partner" class="help-inline"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Name</label>
+                        <div class="col-sm-5">
+                            <form:input type="text" path="name" id="name" class="form-control input-sm"/>
+                            <div class="has-error">
+                                <form:errors path="name" class="help-inline"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Description</label>
+                        <div class="col-sm-5">
+                            <form:textarea path="description" id="description" class="form-control input-sm"/>
+                            <div class="has-error">
+                                <form:errors path="description" class="help-inline"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Tickets</label>
+                        <div class="col-sm-5">
+                            <form:input type="number" path="amount" id="amount" class="form-control input-sm"/>
+                            <div class="has-error">
+                                <form:errors path="amount" class="help-inline"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Free Tickets</label>
+                        <div class="col-sm-5">
+                            <form:input type="text" path="freeAmount" id="freeAmount" class="form-control input-sm" readonly="true"/>
+                            <div class="has-error">
+                                <form:errors path="freeAmount" class="help-inline"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Price</label>
+                        <div class="col-sm-5">
+                            <div class="input-group">
+                                <div class="input-group-addon">$</div>
+                                <form:input type="text" path="price" id="price" class="form-control input-sm"/>
+                            </div>
+                            <div class="has-error">
+                                <form:errors path="price" class="help-inline"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Date</label>
+                        <div class="col-sm-5">
+                            <form:input type="text" path="eventDate" id="eventDate" class="form-control input-sm"/>
+                            <div class="has-error">
+                                <form:errors path="eventDate" class="help-inline"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Publishing Date</label>
+                        <div class="col-sm-5">
+                            <form:input type="text" path="publishedAt" id="publishedAt" class="form-control input-sm"/>
+                            <div class="has-error">
+                                <form:errors path="publishedAt" class="help-inline"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Closing Date</label>
+                        <div class="col-sm-5">
+                            <form:input type="text" path="closedAt" id="closedAt" class="form-control input-sm"/>
+                            <div class="has-error">
+                                <form:errors path="closedAt" class="help-inline"/>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="submit" value="Update" class="btn btn-primary btn-lg"/>
+                </form:form>
             </div>
-        </div>
     </article>
 </rapid:override>
 

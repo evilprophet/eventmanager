@@ -41,6 +41,8 @@
                             <td>
                                 <a class="btn btn-primary" data-dismiss="modal" aria-label="Close"
                                    href=<c:url value='/admin/events/${event.id}'/>>Show</a>
+                                <a class="btn btn-success" data-dismiss="modal" aria-label="Close"
+                                   href=<c:url value='/admin/events/${event.id}/edit'/>>Edit</a>
                                 <a class="btn btn-danger" data-dismiss="modal" aria-label="Close"
                                    href=<c:url value='/admin/events/${event.id}/delete'/>>Delete</a>
                             </td>

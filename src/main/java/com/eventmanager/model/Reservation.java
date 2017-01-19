@@ -1,5 +1,6 @@
 package com.eventmanager.model;
 
+import com.sun.istack.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -41,20 +42,24 @@ public class Reservation implements Serializable {
     @Column(name = "telephone", nullable = false)
     private String telephone;
 
-    @NotEmpty
+    @NotNull
     @Column(name = "amount", nullable = false)
     private Integer amount;
 
-    @NotEmpty
+    @NotNull
     @Column(name = "final_price", nullable = false)
     private Float finalPrice;
 
-    @NotEmpty
+    @NotNull
     @Column(name = "confirmed", nullable = false)
     private Boolean confirmed;
 
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Event getEvent() {

@@ -16,7 +16,6 @@ import java.util.List;
 
 @Controller("ClientPartnerController")
 @RequestMapping("/partners")
-@SessionAttributes("roles")
 public class PartnerController {
 
     @Autowired

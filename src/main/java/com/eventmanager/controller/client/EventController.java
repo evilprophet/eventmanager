@@ -14,7 +14,6 @@ import java.util.List;
 
 @Controller("ClientEventController")
 @RequestMapping("/events")
-@SessionAttributes("roles")
 public class EventController {
 
     @Autowired

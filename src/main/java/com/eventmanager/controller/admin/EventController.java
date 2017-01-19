@@ -1,27 +1,35 @@
 package com.eventmanager.controller.admin;
 
+import com.eventmanager.editor.PartnerEditor;
 import com.eventmanager.model.Event;
+import com.eventmanager.model.Partner;
 import com.eventmanager.model.Reservation;
 import com.eventmanager.service.EventService;
+import com.eventmanager.service.PartnerService;
 import com.eventmanager.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller("AdminEventController")
 @RequestMapping("/admin/events")
-@SessionAttributes("roles")
+
 public class EventController {
+
+    private Event event;
 
     @Autowired
     private EventService eventService;
+
+    @Autowired
+    private PartnerService partnerService;
 
     @Autowired
     private ReservationService reservationService;
@@ -53,9 +61,22 @@ public class EventController {
         if (event == null)
             return "redirect:/admin/events";
 
+        List<Partner> partners = partnerService.findAllPartners();
         model.addAttribute("event", event);
+        model.addAttribute("partners", partners);
 
-        return "admin/event/show";
+        return "admin/event/edit";
+    }
+
+    @RequestMapping(value = {"/{id}/edit"}, method = RequestMethod.POST)
+    public String updateAction(@ModelAttribute("event") Event event, BindingResult result, ModelMap model, @PathVariable Integer id) {
+        if (result.hasErrors())
+            return "admin/event/edit";
+
+        eventService.updateEvent(event);
+
+        model.addAttribute("success", "Event " + event.getName() + " updated successfully");
+        return "redirect:/admin/events/" + event.getId();
     }
 
     @RequestMapping(value = {"/{id}/delete"}, method = RequestMethod.GET)
@@ -63,5 +84,10 @@ public class EventController {
         eventService.deleteEventById(id);
 
         return "redirect:" + request.getHeader("Referer");
+    }
+
+    @InitBinder
+    public void initDataBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(Partner.class, new PartnerEditor(partnerService));
     }
 }

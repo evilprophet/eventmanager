@@ -1,6 +1,5 @@
 <%@ taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <rapid:override name="pageTitle">Partner - ${partner.name}</rapid:override>
 <rapid:override name="content">
     <article class="container-fluid">
@@ -88,6 +87,8 @@
                             <td>
                                 <a class="btn btn-primary" data-dismiss="modal" aria-label="Close"
                                    href=<c:url value='/admin/events/${event.id}'/>>Show</a>
+                                <a class="btn btn-success" data-dismiss="modal" aria-label="Close"
+                                   href=<c:url value='/admin/events/${event.id}/edit'/>>Edit</a>
                                 <a class="btn btn-danger" data-dismiss="modal" aria-label="Close"
                                    href=<c:url value='/admin/events/${event.id}/delete'/>>Delete</a>
                             </td>
