@@ -60,8 +60,7 @@ public class EventController {
     }
 
     @RequestMapping(value = {"/new"}, method = RequestMethod.POST)
-    public String createAction(@Valid Event event, BindingResult result,
-                               ModelMap model, final RedirectAttributes redirectAttributes) {
+    public String createAction(@Valid Event event, BindingResult result, ModelMap model, final RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             List<Partner> partners = partnerService.findAllPartners();
             model.addAttribute("partners", partners);
