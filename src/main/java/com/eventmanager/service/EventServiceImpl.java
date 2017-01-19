@@ -13,8 +13,12 @@ import java.util.List;
 @Transactional
 public class EventServiceImpl implements EventService {
 
+    private final EventDao dao;
+
     @Autowired
-    private EventDao dao;
+    public EventServiceImpl(EventDao dao) {
+        this.dao = dao;
+    }
 
     public void saveEvent(Event event) {
         dao.save(event);

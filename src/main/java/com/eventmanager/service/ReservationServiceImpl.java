@@ -13,8 +13,12 @@ import java.util.List;
 @Transactional
 public class ReservationServiceImpl implements ReservationService {
 
+    private final ReservationDao dao;
+
     @Autowired
-    private ReservationDao dao;
+    public ReservationServiceImpl(ReservationDao dao) {
+        this.dao = dao;
+    }
 
     public void saveReservation(Reservation reservation) {
         dao.save(reservation);

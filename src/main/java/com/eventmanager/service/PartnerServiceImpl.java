@@ -12,8 +12,12 @@ import java.util.List;
 @Transactional
 public class PartnerServiceImpl implements PartnerService {
 
+    private final PartnerDao dao;
+
     @Autowired
-    private PartnerDao dao;
+    public PartnerServiceImpl(PartnerDao dao) {
+        this.dao = dao;
+    }
 
     public void savePartner(Partner partner) {
         dao.save(partner);

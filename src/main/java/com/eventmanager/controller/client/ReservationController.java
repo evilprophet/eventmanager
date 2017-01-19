@@ -22,11 +22,15 @@ import javax.validation.Valid;
 @RequestMapping("/reservations")
 public class ReservationController {
 
-    @Autowired
-    private ReservationService reservationService;
+    private final ReservationService reservationService;
+
+    private final EventService eventService;
 
     @Autowired
-    private EventService eventService;
+    public ReservationController(ReservationService reservationService, EventService eventService) {
+        this.reservationService = reservationService;
+        this.eventService = eventService;
+    }
 
     @RequestMapping(value = {"/new"}, params = {"event_id"}, method = RequestMethod.GET)
     public String newAction(ModelMap model, @RequestParam(value = "event_id") Integer eventId, HttpServletRequest request) {

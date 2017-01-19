@@ -18,11 +18,15 @@ import java.util.List;
 @RequestMapping("/partners")
 public class PartnerController {
 
-    @Autowired
-    private PartnerService partnerService;
+    private final PartnerService partnerService;
+
+    private final EventService eventService;
 
     @Autowired
-    private EventService eventService;
+    public PartnerController(PartnerService partnerService, EventService eventService) {
+        this.partnerService = partnerService;
+        this.eventService = eventService;
+    }
 
     @RequestMapping(value = {"", "/", "/index"}, method = RequestMethod.GET)
     public String indexAction(ModelMap model) {

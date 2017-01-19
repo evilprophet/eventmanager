@@ -16,8 +16,12 @@ import java.util.List;
 @RequestMapping("/events")
 public class EventController {
 
+    private final EventService eventService;
+
     @Autowired
-    private EventService eventService;
+    public EventController(EventService eventService) {
+        this.eventService = eventService;
+    }
 
     @RequestMapping(value = {"", "/", "/index"}, method = RequestMethod.GET)
     public String indexAction(ModelMap model) {

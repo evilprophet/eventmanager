@@ -16,8 +16,12 @@ import java.util.List;
 @RequestMapping("/admin/reservations")
 public class ReservationController {
 
+    private final ReservationService reservationService;
+
     @Autowired
-    private ReservationService reservationService;
+    public ReservationController(ReservationService reservationService) {
+        this.reservationService = reservationService;
+    }
 
     @RequestMapping(value = {"", "/", "/index"}, method = RequestMethod.GET)
     public String indexAction(ModelMap model) {

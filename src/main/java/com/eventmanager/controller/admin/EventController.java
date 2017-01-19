@@ -24,16 +24,18 @@ import java.util.List;
 
 public class EventController {
 
-    private Event event;
+    private final EventService eventService;
+
+    private final PartnerService partnerService;
+
+    private final ReservationService reservationService;
 
     @Autowired
-    private EventService eventService;
-
-    @Autowired
-    private PartnerService partnerService;
-
-    @Autowired
-    private ReservationService reservationService;
+    public EventController(ReservationService reservationService, PartnerService partnerService, EventService eventService) {
+        this.reservationService = reservationService;
+        this.partnerService = partnerService;
+        this.eventService = eventService;
+    }
 
     @RequestMapping(value = {"", "/", "/index"}, method = RequestMethod.GET)
     public String indexAction(ModelMap model) {
