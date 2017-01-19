@@ -44,7 +44,7 @@ public class EventController {
     }
 
     @RequestMapping(value = {"/new"}, method = RequestMethod.GET)
-    public String newAction(@RequestParam(value = "partner_id", defaultValue = "-1") Integer partnerId, ModelMap model) {
+    public String newAction(ModelMap model, @RequestParam(value = "partner_id", defaultValue = "-1") Integer partnerId) {
         Event event = new Event();
         Partner partner = partnerService.findById(partnerId);
         if (partner != null) {
