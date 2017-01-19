@@ -22,7 +22,7 @@ public class Reservation implements Serializable {
     @Column(name = "uuid", nullable = false)
     private String uuid;
 
-    @NotEmpty
+    @NotNull
     @Column(name = "reservation_key", nullable = false)
     private String reservationKey;
 
@@ -68,7 +68,7 @@ public class Reservation implements Serializable {
 
     public void setEvent(Event event) {
         this.event = event;
-        if (!event.getReservations().contains(this)) { // warning this may cause performance issues if you have a large data set since this operation is O(n)
+        if (!event.getReservations().contains(this)) {
             event.getReservations().add(this);
         }
     }

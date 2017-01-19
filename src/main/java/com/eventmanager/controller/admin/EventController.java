@@ -13,6 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -53,12 +54,14 @@ public class EventController {
     }
 
     @RequestMapping(value = {"/new"}, method = RequestMethod.POST)
-    public String saveUser(@Valid Event event, BindingResult result, ModelMap model) {
+    public String createAction(@Valid Event event, BindingResult result, ModelMap model, final RedirectAttributes redirectAttributes) {
         if (result.hasErrors())
             return "admin/event/new";
 
         eventService.saveEvent(event);
-        model.addAttribute("success", "Event " + event.getName() + " registered successfully");
+
+        redirectAttributes.addFlashAttribute("css", "success");
+        redirectAttributes.addFlashAttribute("msg", "Event " + event.getName() + " registered successfully");
 
         return "redirect:/admin/events";
     }
@@ -66,9 +69,9 @@ public class EventController {
     @RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
     public String showAction(@PathVariable Integer id, ModelMap model) {
         Event event = eventService.findById(id);
-        if (event == null)
+        if (event == null) {
             return "redirect:/admin/events";
-
+        }
         List<Reservation> reservations = reservationService.findReservationsByEvent(event);
         model.addAttribute("event", event);
         model.addAttribute("reservations", reservations);
@@ -79,9 +82,9 @@ public class EventController {
     @RequestMapping(value = {"/{id}/edit"}, method = RequestMethod.GET)
     public String editAction(@PathVariable Integer id, ModelMap model) {
         Event event = eventService.findById(id);
-        if (event == null)
+        if (event == null) {
             return "redirect:/admin/events";
-
+        }
         List<Partner> partners = partnerService.findAllPartners();
         model.addAttribute("event", event);
         model.addAttribute("partners", partners);
@@ -90,13 +93,15 @@ public class EventController {
     }
 
     @RequestMapping(value = {"/{id}/edit"}, method = RequestMethod.POST)
-    public String updateAction(@ModelAttribute("event") Event event, BindingResult result, ModelMap model, @PathVariable Integer id) {
+    public String updateAction(@ModelAttribute("event") Event event, BindingResult result, ModelMap model,
+                               @PathVariable Integer id, final RedirectAttributes redirectAttributes) {
         if (result.hasErrors())
             return "admin/event/edit";
 
         eventService.updateEvent(event);
 
-        model.addAttribute("success", "Event " + event.getName() + " updated successfully");
+        redirectAttributes.addFlashAttribute("css", "success");
+        redirectAttributes.addFlashAttribute("msg", "Event " + event.getName() + " updated successfully");
         return "redirect:/admin/events/" + event.getId();
     }
 

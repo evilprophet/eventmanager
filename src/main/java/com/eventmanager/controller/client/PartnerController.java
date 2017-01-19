@@ -35,9 +35,9 @@ public class PartnerController {
     @RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
     public String showAction(@PathVariable Integer id, ModelMap model) {
         Partner partner = partnerService.findById(id);
-        if (partner == null)
+        if (partner == null) {
             return "redirect:/partners";
-
+        }
         List<Event> events = eventService.findAvailableEventsByPartner(partner);
         model.addAttribute("partner", partner);
         model.addAttribute("events", events);

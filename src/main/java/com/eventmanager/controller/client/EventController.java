@@ -30,9 +30,9 @@ public class EventController {
     @RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
     public String showAction(@PathVariable Integer id, ModelMap model) {
         Event event = eventService.findById(id);
-        if (event == null || !event.isAvailable())
+        if (event == null || !event.isAvailable()) {
             return "redirect:/events";
-
+        }
         model.addAttribute("event", event);
 
         return "client/event/show";

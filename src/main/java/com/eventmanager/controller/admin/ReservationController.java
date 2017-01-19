@@ -30,9 +30,9 @@ public class ReservationController {
     @RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
     public String showAction(@PathVariable Integer id, ModelMap model) {
         Reservation reservation = reservationService.findById(id);
-        if (reservation == null)
+        if (reservation == null) {
             return "redirect:/admin/reservations";
-
+        }
         model.addAttribute("reservation", reservation);
 
         return "admin/reservation/show";

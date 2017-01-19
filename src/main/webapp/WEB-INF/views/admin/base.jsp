@@ -10,6 +10,14 @@
 </head>
 <body>
 <article class="container-fluid">
+    <c:if test="${not empty msg}">
+        <div class="alert alert-${css} alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>${msg}</strong>
+        </div>
+    </c:if>
     <div class="panel panel-default">
         <div class="panel-heading clearfix">
             <h5>Admin Panel</h5>

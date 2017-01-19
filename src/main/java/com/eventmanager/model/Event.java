@@ -73,7 +73,7 @@ public class Event implements Serializable {
 
     public void setPartner(Partner partner) {
         this.partner = partner;
-        if (!partner.getEvents().contains(this)) { // warning this may cause performance issues if you have a large data set since this operation is O(n)
+        if (!partner.getEvents().contains(this)) {
             partner.getEvents().add(this);
         }
     }
