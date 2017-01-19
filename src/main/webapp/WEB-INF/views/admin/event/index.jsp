@@ -8,6 +8,8 @@
                 <h4 class="col-md-1">Events</h4>
                 <a class="btn btn-default btn-lg pull-right" data-dismiss="modal" aria-label="Close"
                    href=<c:url value='/admin'/>>Back</a>
+                <a class="btn btn-success btn-lg pull-right" data-dismiss="modal" aria-label="Close"
+                   href=<c:url value='/admin/events/new'/>>New</a>
             </div>
             <div class="panel-body">
                 <table class="table table-bordered table-striped table-hover">

@@ -42,6 +42,27 @@ public class EventController {
         return "admin/event/index";
     }
 
+    @RequestMapping(value = {"/new"}, method = RequestMethod.GET)
+    public String newAction(ModelMap model) {
+        Event event = new Event();
+        List<Partner> partners = partnerService.findAllPartners();
+        model.addAttribute("partners", partners);
+        model.addAttribute("event", event);
+
+        return "admin/event/new";
+    }
+
+    @RequestMapping(value = {"/new"}, method = RequestMethod.POST)
+    public String saveUser(@Valid Event event, BindingResult result, ModelMap model) {
+        if (result.hasErrors())
+            return "admin/event/new";
+
+        eventService.saveEvent(event);
+        model.addAttribute("success", "Event " + event.getName() + " registered successfully");
+
+        return "redirect:/admin/events";
+    }
+
     @RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
     public String showAction(@PathVariable Integer id, ModelMap model) {
         Event event = eventService.findById(id);

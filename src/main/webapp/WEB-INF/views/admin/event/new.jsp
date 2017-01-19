@@ -1,7 +1,7 @@
 <%@ taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<rapid:override name="pageTitle">Event - ${event.name}</rapid:override>
+<rapid:override name="pageTitle">Event new</rapid:override>
 <rapid:override name="content">
     <article class="container-fluid">
         <div class="panel panel-default">
@@ -13,12 +13,6 @@
             <div class="panel-body">
                 <form:form method="POST" modelAttribute="event" class="form-horizontal">
                     <form:input type="hidden" path="id" id="id"/>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Id</label>
-                        <div class="col-sm-5">
-                            <p class="form-control-static">${event.id}</p>
-                        </div>
-                    </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Partner</label>
                         <div class="col-sm-5">
@@ -105,7 +99,7 @@
                             </div>
                         </div>
                     </div>
-                    <input type="submit" value="Update" class="btn btn-primary btn-lg"/>
+                    <input type="submit" value="Add" class="btn btn-primary btn-lg"/>
                 </form:form>
             </div>
         </div>
@@ -113,16 +107,12 @@
 </rapid:override>
 <rapid:override name="script">
     <script type="text/javascript">
-        var ticketsUsed;
-        $(function () {
-            ticketsUsed = $('#amount').val() - $('#freeAmount').val();
+        $('#amount').bind('change paste keyup', function () {
+            $('#freeAmount').val($('#amount').val());
         });
         $('#eventDate, #publishedAt, #closedAt').datetimepicker({
             format:'Y-m-d H:i',
             mask: true
-        });
-        $('#amount').bind('change paste keyup', function () {
-            $('#freeAmount').val($('#amount').val() - ticketsUsed);
         });
     </script>
 </rapid:override>

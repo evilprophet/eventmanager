@@ -54,6 +54,8 @@
         <div class="panel panel-default">
             <div class="panel-heading clearfix">
                 <h4 class="col-md-2">Events for partner</h4>
+                <a class="btn btn-success btn-lg pull-right" data-dismiss="modal" aria-label="Close"
+                   href=<c:url value='/admin/events/new'/>>New</a>
             </div>
             <div class="panel-body">
                 <table class="table table-bordered table-striped table-hover">

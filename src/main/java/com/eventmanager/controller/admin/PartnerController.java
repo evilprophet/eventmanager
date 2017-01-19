@@ -11,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -33,6 +32,25 @@ public class PartnerController {
         model.addAttribute("partners", partners);
 
         return "admin/partner/index";
+    }
+
+    @RequestMapping(value = {"/new"}, method = RequestMethod.GET)
+    public String newAction(ModelMap model) {
+        Partner partner = new Partner();
+        model.addAttribute("partner", partner);
+
+        return "admin/partner/new";
+    }
+
+    @RequestMapping(value = {"/new"}, method = RequestMethod.POST)
+    public String saveUser(@Valid Partner partner, BindingResult result, ModelMap model) {
+        if (result.hasErrors())
+            return "admin/partner/new";
+
+        partnerService.savePartner(partner);
+        model.addAttribute("success", "Partner " + partner.getName() + " registered successfully");
+
+        return "redirect:/admin/partners";
     }
 
     @RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)

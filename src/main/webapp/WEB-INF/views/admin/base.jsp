@@ -6,6 +6,7 @@
     <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"/>
     <link href="<c:url value='/static/css/bootstrap.min.css' />" rel="stylesheet"/>
     <link href="<c:url value='/static/css/bootstrap-theme.min.css' />" rel="stylesheet"/>
+    <link href="<c:url value='/static/css/jquery.datetimepicker.min.css' />" rel="stylesheet"/>
 </head>
 <body>
 <article class="container-fluid">
@@ -28,4 +29,8 @@
 </body>
 <script src="<c:url value='/static/js/jquery-3.1.1.min.js' />"></script>
 <script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
+<script src="<c:url value='/static/js/jquery.datetimepicker.full.min.js' />"></script>
+<rapid:block name="script">
+
+</rapid:block>
 </html>
