@@ -29,9 +29,9 @@ public class ReservationController {
     private EventService eventService;
 
     @RequestMapping(value = {"/new"}, params = {"event_id"}, method = RequestMethod.GET)
-    public String newAction(ModelMap model, @RequestParam(value = "event_id") Integer event_id, HttpServletRequest request) {
+    public String newAction(ModelMap model, @RequestParam(value = "event_id") Integer eventId, HttpServletRequest request) {
         Reservation reservation = new Reservation();
-        Event event = eventService.findById(event_id);
+        Event event = eventService.findById(eventId);
         if (event == null || !event.isAvailable()) {
             return "redirect:/events";
         }
