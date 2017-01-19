@@ -8,6 +8,10 @@
                 <h4 class="col-md-1">Details</h4>
                 <a class="btn btn-default btn-lg pull-right" data-dismiss="modal" aria-label="Close"
                    href=<c:url value='/admin/events'/>>Back</a>
+                <a class="btn btn-danger btn-lg pull-right" data-dismiss="modal" aria-label="Close"
+                   href=<c:url value='/admin/events/${event.id}/delete'/>>Delete</a>
+                <a class="btn btn-success btn-lg pull-right" data-dismiss="modal" aria-label="Close"
+                   href=<c:url value='/admin/events/${event.id}/edit'/>>Edit</a>
             </div>
             <div class="panel-body">
                 <form class="form-horizontal">
@@ -107,7 +111,7 @@
                             </td>
                             <td>
                                 <a class="btn btn-primary" data-dismiss="modal" aria-label="Close"
-                                   href=<c:url value='/admin/events/${reservation.id}'/>>Show</a>
+                                   href=<c:url value='/admin/reservation/${reservation.id}'/>>Show</a>
                             </td>
                         </tr>
                     </c:forEach>

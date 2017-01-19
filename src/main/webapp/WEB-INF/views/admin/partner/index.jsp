@@ -14,7 +14,7 @@
                     <thead>
                     <tr>
                         <th>Name</th>
-                        <th class="col-xs-1">Action</th>
+                        <th class="col-xs-2">Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -24,6 +24,8 @@
                             <td>
                                 <a class="btn btn-primary" data-dismiss="modal" aria-label="Close"
                                    href=<c:url value='/admin/partners/${partner.id}'/>>Show</a>
+                                <a class="btn btn-danger" data-dismiss="modal" aria-label="Close"
+                                   href=<c:url value='/admin/partners/${partner.id}/delete'/>>Delete</a>
                             </td>
                         </tr>
                     </c:forEach>

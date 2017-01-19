@@ -24,7 +24,7 @@ public class ReservationDaoImpl extends AbstractDao<Integer, Reservation> implem
     @SuppressWarnings("unchecked")
     public List<Reservation> findAllReservations() {
         return (List<Reservation>) getEntityManager()
-                .createQuery("SELECT r FROM Reservation r ORDER BY u.id ASC")
+                .createQuery("SELECT r FROM Reservation r ORDER BY r.id ASC")
                 .getResultList();
     }
 

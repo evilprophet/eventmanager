@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller("AdminEventController")
@@ -36,13 +37,31 @@ public class EventController {
     @RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
     public String showAction(@PathVariable Integer id, ModelMap model) {
         Event event = eventService.findById(id);
-        if (event == null || !event.isAvailable())
-            return "redirect:/";
+        if (event == null)
+            return "redirect:/admin/events";
 
         List<Reservation> reservations = reservationService.findReservationsByEvent(event);
         model.addAttribute("event", event);
         model.addAttribute("reservations", reservations);
 
         return "admin/event/show";
+    }
+
+    @RequestMapping(value = {"/{id}/edit"}, method = RequestMethod.GET)
+    public String editAction(@PathVariable Integer id, ModelMap model) {
+        Event event = eventService.findById(id);
+        if (event == null)
+            return "redirect:/admin/events";
+
+        model.addAttribute("event", event);
+
+        return "admin/event/show";
+    }
+
+    @RequestMapping(value = {"/{id}/delete"}, method = RequestMethod.GET)
+    public String deleteAction(@PathVariable Integer id, HttpServletRequest request) {
+        eventService.deleteEventById(id);
+
+        return "redirect:" + request.getHeader("Referer");
     }
 }

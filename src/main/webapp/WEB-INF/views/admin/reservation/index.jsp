@@ -1,11 +1,11 @@
 <%@ taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<rapid:override name="pageTitle">Events</rapid:override>
+<rapid:override name="pageTitle">Reservations</rapid:override>
 <rapid:override name="content">
     <article class="container-fluid">
         <div class="panel panel-default">
             <div class="panel-heading clearfix">
-                <h4 class="col-md-1">Events</h4>
+                <h4 class="col-md-1">Reservations</h4>
                 <a class="btn btn-default btn-lg pull-right" data-dismiss="modal" aria-label="Close"
                    href=<c:url value='/admin'/>>Back</a>
             </div>
@@ -14,23 +14,25 @@
                     <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Email</th>
+                        <th>Event</th>
                         <th class="col-xs-1">Tickets</th>
-                        <th class="col-xs-1">Price</th>
-                        <th class="col-xs-2">Date</th>
-                        <th class="col-xs-2">Available</th>
-                        <th class="col-xs-2">Action</th>
+                        <th class="col-xs-1">Final price</th>
+                        <th class="col-xs-1">Confirmed</th>
+                        <th class="col-xs-1">Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${events}" var="event">
+                    <c:forEach items="${reservations}" var="reservation">
                         <tr>
-                            <td>${event.name}</td>
-                            <td>${event.freeAmount}/${event.amount}</td>
-                            <td>${event.price}</td>
-                            <td>${event.eventDate}</td>
+                            <td>${reservation.getFullName()}</td>
+                            <td>${reservation.email}</td>
+                            <td>${reservation.event.name}</td>
+                            <td>${reservation.amount}</td>
+                            <td>${reservation.finalPrice}</td>
                             <td>
                                 <c:choose>
-                                    <c:when test="${event.isAvailable()}">
+                                    <c:when test="${reservation.isConfirmed()}">
                                         <span class="label label-success">Yes</span>
                                     </c:when>
                                     <c:otherwise>
@@ -40,9 +42,7 @@
                             </td>
                             <td>
                                 <a class="btn btn-primary" data-dismiss="modal" aria-label="Close"
-                                   href=<c:url value='/admin/events/${event.id}'/>>Show</a>
-                                <a class="btn btn-danger" data-dismiss="modal" aria-label="Close"
-                                   href=<c:url value='/admin/events/${event.id}/delete'/>>Delete</a>
+                                   href=<c:url value='/admin/reservations/${reservation.id}'/>>Show</a>
                             </td>
                         </tr>
                     </c:forEach>

@@ -1,5 +1,6 @@
 <%@ taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <rapid:override name="pageTitle">Partner - ${partner.name}</rapid:override>
 <rapid:override name="content">
     <article class="container-fluid">
@@ -8,6 +9,10 @@
                 <h4 class="col-md-1">Details</h4>
                 <a class="btn btn-default btn-lg pull-right" data-dismiss="modal" aria-label="Close"
                    href=<c:url value='/admin/partners'/>>Back</a>
+                <a class="btn btn-danger btn-lg pull-right" data-dismiss="modal" aria-label="Close"
+                   href=<c:url value='/admin/partners/${partner.id}/delete'/>>Delete</a>
+                <a class="btn btn-success btn-lg pull-right" data-dismiss="modal" aria-label="Close"
+                   href=<c:url value='/admin/partners/${partner.id}/edit'/>>Edit</a>
             </div>
             <div class="panel-body">
                 <form class="form-horizontal">
@@ -84,7 +89,7 @@
                                 <a class="btn btn-primary" data-dismiss="modal" aria-label="Close"
                                    href=<c:url value='/admin/events/${event.id}'/>>Show</a>
                                 <a class="btn btn-danger" data-dismiss="modal" aria-label="Close"
-                                   href=<c:url value='/admin/events/${event.id}'/>>Delete</a>
+                                   href=<c:url value='/admin/events/${event.id}/delete'/>>Delete</a>
                             </td>
                         </tr>
                     </c:forEach>

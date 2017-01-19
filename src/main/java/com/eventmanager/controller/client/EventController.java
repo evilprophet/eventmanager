@@ -32,7 +32,7 @@ public class EventController {
     public String showAction(@PathVariable Integer id, ModelMap model) {
         Event event = eventService.findById(id);
         if (event == null || !event.isAvailable())
-            return "redirect:/";
+            return "redirect:/events";
 
         model.addAttribute("event", event);
 

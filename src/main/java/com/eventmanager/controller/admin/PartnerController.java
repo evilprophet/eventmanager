@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller("AdminPartnerController")
@@ -37,12 +38,30 @@ public class PartnerController {
     public String showAction(@PathVariable Integer id, ModelMap model) {
         Partner partner = partnerService.findById(id);
         if (partner == null)
-            return "redirect:/partners";
+            return "redirect:/admin/partners";
 
         List<Event> events = eventService.findEventsByPartner(partner);
         model.addAttribute("partner", partner);
         model.addAttribute("events", events);
 
         return "admin/partner/show";
+    }
+
+    @RequestMapping(value = {"/{id}/edit"}, method = RequestMethod.GET)
+    public String editAction(@PathVariable Integer id, ModelMap model) {
+        Partner partner = partnerService.findById(id);
+        if (partner == null)
+            return "redirect:/admin/partners";
+
+        model.addAttribute("partner", partner);
+
+        return "admin/partner/show";
+    }
+
+    @RequestMapping(value = {"/{id}/delete"}, method = RequestMethod.GET)
+    public String deleteAction(@PathVariable Integer id, HttpServletRequest request) {
+        partnerService.deletePartnerById(id);
+
+        return "redirect:" + request.getHeader("Referer");
     }
 }
