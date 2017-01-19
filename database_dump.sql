@@ -15,6 +15,9 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+CREATE DATABASE `eventmanager` DEFAULT CHARSET=utf8  COLLATE = utf8_general_ci;
+USE `eventmanager`;
+
 --
 -- Table structure for table `admins`
 --
@@ -73,7 +76,7 @@ LOCK TABLES `events` WRITE;
 INSERT INTO `events` (`id`, `partner_id`, `name`, `description`, `amount`, `free_amount`, `price`, `event_date`, `published_at`, `closed_at`) VALUES (1,1,'Event 1(1)','event for partner 1',10,10,5,'2017-04-10 12:00:00','2017-01-10 12:00:00','2017-03-10 12:00:00');
 INSERT INTO `events` (`id`, `partner_id`, `name`, `description`, `amount`, `free_amount`, `price`, `event_date`, `published_at`, `closed_at`) VALUES (2,2,'Event 1(2)','event for partner 2',5,5,25,'2017-04-10 14:00:00','2017-01-10 12:00:00','2017-03-10 12:00:00');
 INSERT INTO `events` (`id`, `partner_id`, `name`, `description`, `amount`, `free_amount`, `price`, `event_date`, `published_at`, `closed_at`) VALUES (3,1,'Event 2(1)','event for partner 1',20,20,10,'2017-04-11 15:00:00','2017-01-10 12:00:00','2017-03-10 12:00:00');
-INSERT INTO `events` (`id`, `partner_id`, `name`, `description`, `amount`, `free_amount`, `price`, `event_date`, `published_at`, `closed_at`) VALUES (4,NULL,'Event 3(1)','event for partner 1',2,2,3,'2017-02-10 12:00:00','2017-01-01 12:00:00','2017-01-05 12:00:00');
+INSERT INTO `events` (`id`, `partner_id`, `name`, `description`, `amount`, `free_amount`, `price`, `event_date`, `published_at`, `closed_at`) VALUES (4,2,'Event 3(1)','event for partner 1',2,2,3,'2017-02-10 12:00:00','2017-01-01 12:00:00','2017-01-05 12:00:00');
 /*!40000 ALTER TABLE `events` ENABLE KEYS */;
 UNLOCK TABLES;
 

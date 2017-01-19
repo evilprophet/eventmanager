@@ -51,7 +51,7 @@ public class Event implements Serializable {
     @Column(name = "closed_at", nullable = false)
     private Date closedAt;
 
-    @OneToMany(mappedBy = "event")
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
     private List<Reservation> reservations;
 
     public Integer getId() {

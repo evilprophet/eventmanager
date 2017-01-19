@@ -1,9 +1,9 @@
-package com.eventmanager.controller.client;
+package com.eventmanager.controller.admin;
 
 import com.eventmanager.model.Event;
-import com.eventmanager.model.Partner;
+import com.eventmanager.model.Reservation;
 import com.eventmanager.service.EventService;
-import com.eventmanager.service.PartnerService;
+import com.eventmanager.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -14,35 +14,35 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.List;
 
-@Controller("ClientPartnerController")
-@RequestMapping("/partners")
+@Controller("AdminEventController")
+@RequestMapping("/admin/events")
 @SessionAttributes("roles")
-public class PartnerController {
-
-    @Autowired
-    private PartnerService partnerService;
+public class EventController {
 
     @Autowired
     private EventService eventService;
 
+    @Autowired
+    private ReservationService reservationService;
+
     @RequestMapping(value = {"", "/", "/index"}, method = RequestMethod.GET)
     public String indexAction(ModelMap model) {
-        List<Partner> partners = partnerService.findAllPartners();
-        model.addAttribute("partners", partners);
+        List<Event> events = eventService.findAllEvents();
+        model.addAttribute("events", events);
 
-        return "client/partner/index";
+        return "admin/event/index";
     }
 
     @RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
     public String showAction(@PathVariable Integer id, ModelMap model) {
-        Partner partner = partnerService.findById(id);
-        if (partner == null)
-            return "redirect:/partners";
+        Event event = eventService.findById(id);
+        if (event == null || !event.isAvailable())
+            return "redirect:/";
 
-        List<Event> events = eventService.findAvailableEventsByPartner(partner);
-        model.addAttribute("partner", partner);
-        model.addAttribute("events", events);
+        List<Reservation> reservations = reservationService.findReservationsByEvent(event);
+        model.addAttribute("event", event);
+        model.addAttribute("reservations", reservations);
 
-        return "client/partner/show";
+        return "admin/event/show";
     }
 }

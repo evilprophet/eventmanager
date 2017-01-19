@@ -32,8 +32,11 @@ public class EventServiceImpl implements EventService {
             entity.setName(event.getName());
             entity.setDescription(event.getDescription());
             entity.setAmount(event.getAmount());
+            entity.setPrice(event.getPrice());
             entity.setFreeAmount(event.getFreeAmount());
             entity.setEventDate(event.getEventDate());
+            entity.setPublishedAt(event.getPublishedAt());
+            entity.setClosedAt(event.getClosedAt());
         }
     }
 

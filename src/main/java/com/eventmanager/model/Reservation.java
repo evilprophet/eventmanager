@@ -132,7 +132,7 @@ public class Reservation implements Serializable {
         this.finalPrice = finalPrice;
     }
 
-    public Boolean getConfirmed() {
+    public Boolean isConfirmed() {
         return confirmed;
     }
 
@@ -143,6 +143,10 @@ public class Reservation implements Serializable {
     public void confirm() {
         this.confirmed = true;
         this.reservationKey = "test";
+    }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.eventmanager.controller.client;
+package com.eventmanager.controller.admin;
 
 import com.eventmanager.model.Event;
 import com.eventmanager.model.Partner;
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.List;
 
-@Controller("ClientPartnerController")
-@RequestMapping("/partners")
+@Controller("AdminPartnerController")
+@RequestMapping("/admin/partners")
 @SessionAttributes("roles")
 public class PartnerController {
 
@@ -30,7 +30,7 @@ public class PartnerController {
         List<Partner> partners = partnerService.findAllPartners();
         model.addAttribute("partners", partners);
 
-        return "client/partner/index";
+        return "admin/partner/index";
     }
 
     @RequestMapping(value = {"/{id}"}, method = RequestMethod.GET)
@@ -39,10 +39,10 @@ public class PartnerController {
         if (partner == null)
             return "redirect:/partners";
 
-        List<Event> events = eventService.findAvailableEventsByPartner(partner);
+        List<Event> events = eventService.findEventsByPartner(partner);
         model.addAttribute("partner", partner);
         model.addAttribute("events", events);
 
-        return "client/partner/show";
+        return "admin/partner/show";
     }
 }

@@ -37,7 +37,7 @@ public class ReservationServiceImpl implements ReservationService {
             entity.setTelephone(reservation.getTelephone());
             entity.setAmount(reservation.getAmount());
             entity.setFinalPrice(reservation.getFinalPrice());
-            entity.setConfirmed(reservation.getConfirmed());
+            entity.setConfirmed(reservation.isConfirmed());
         }
     }
 

@@ -38,7 +38,7 @@ public class Partner implements Serializable {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @OneToMany(mappedBy="partner", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy="partner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Event> events;
 
     public Integer getId() {
