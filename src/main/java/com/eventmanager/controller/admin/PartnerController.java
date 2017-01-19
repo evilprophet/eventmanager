@@ -48,7 +48,7 @@ public class PartnerController {
     }
 
     @RequestMapping(value = {"/new"}, method = RequestMethod.POST)
-    public String createAction(@Valid Partner partner, BindingResult result, ModelMap model, final RedirectAttributes redirectAttributes) {
+    public String createAction(@Valid Partner partner, BindingResult result, final RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             return "admin/partner/new";
         }
@@ -85,8 +85,7 @@ public class PartnerController {
     }
 
     @RequestMapping(value = {"/{id}/edit"}, method = RequestMethod.POST)
-    public String updateAction(@Valid Partner partner, BindingResult result, ModelMap model,
-                               @PathVariable Integer id, final RedirectAttributes redirectAttributes) {
+    public String updateAction(@Valid Partner partner, BindingResult result, final RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             return "admin/partner/edit";
         }

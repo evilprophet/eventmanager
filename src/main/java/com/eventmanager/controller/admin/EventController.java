@@ -60,7 +60,7 @@ public class EventController {
     }
 
     @RequestMapping(value = {"/new"}, method = RequestMethod.POST)
-    public String createAction(@Valid Event event, BindingResult result, ModelMap model, final RedirectAttributes redirectAttributes) {
+    public String createAction(@Valid Event event, BindingResult result, final RedirectAttributes redirectAttributes) {
         if (result.hasErrors())
             return "admin/event/new";
 
@@ -99,15 +99,15 @@ public class EventController {
     }
 
     @RequestMapping(value = {"/{id}/edit"}, method = RequestMethod.POST)
-    public String updateAction(@ModelAttribute("event") Event event, BindingResult result, ModelMap model,
-                               @PathVariable Integer id, final RedirectAttributes redirectAttributes) {
-        if (result.hasErrors())
+    public String updateAction(@ModelAttribute("event") Event event, BindingResult result, final RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) {
             return "admin/event/edit";
-
+        }
         eventService.updateEvent(event);
 
         redirectAttributes.addFlashAttribute("css", "success");
         redirectAttributes.addFlashAttribute("msg", "Event " + event.getName() + " updated successfully");
+
         return "redirect:/admin/events/" + event.getId();
     }
 

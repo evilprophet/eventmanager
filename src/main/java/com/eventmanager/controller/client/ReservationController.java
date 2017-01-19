@@ -48,7 +48,7 @@ public class ReservationController {
     }
 
     @RequestMapping(value = {"/new"}, params = {"event_id"}, method = RequestMethod.POST)
-    public String createAction(@Valid Reservation reservation, BindingResult result, ModelMap model, final RedirectAttributes redirectAttributes) {
+    public String createAction(@Valid Reservation reservation, BindingResult result, final RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             return "client/reservation/new";
         }
