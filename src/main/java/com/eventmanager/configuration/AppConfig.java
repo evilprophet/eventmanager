@@ -11,7 +11,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
-@Import(JpaConfiguration.class)
+@Import({JpaConfiguration.class, SecurityConfig.class})
 @EnableWebMvc
 @ComponentScan(basePackages = "com.eventmanager")
 public class AppConfig extends WebMvcConfigurerAdapter {
