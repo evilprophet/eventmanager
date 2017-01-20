@@ -18,6 +18,7 @@ public class ReservationValidator implements Validator {
     public void validate(Object target, Errors errors) {
         Reservation reservation = (Reservation) target;
 
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "event", "NotEmpty.reservation.event");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "NotEmpty.reservation.firstName");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "NotEmpty.reservation.lastName");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty.reservation.email");

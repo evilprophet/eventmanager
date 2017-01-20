@@ -58,8 +58,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Free Tickets</label>
                         <div class="col-sm-5">
-                            <form:input type="text" path="freeAmount" id="freeAmount" class="form-control input-sm"
-                                        readonly="true"/>
+                            <form:input type="text" path="freeAmount" id="freeAmount" class="form-control input-sm" readonly="true"/>
                             <div class="has-error">
                                 <form:errors path="freeAmount" class="help-inline"/>
                             </div>

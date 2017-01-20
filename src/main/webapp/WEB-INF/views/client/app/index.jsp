@@ -12,6 +12,8 @@
                        href=<c:url value='/partners'/>>Show partners</a>
                     <a class="btn btn-default btn-lg" data-dismiss="modal" aria-label="Close"
                        href=<c:url value='/events'/>>Show events</a>
+                    <a class="btn btn-primary btn-lg" data-dismiss="modal" aria-label="Close"
+                       href=<c:url value='/reservations/new'/>>New reservation</a>
                 </div>
             </div>
         </div>
