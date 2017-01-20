@@ -99,10 +99,9 @@ public class PartnerController {
     @RequestMapping(value = {"/{id}/edit"}, method = RequestMethod.POST)
     public String updateAction(@Valid Partner partner, BindingResult result, final RedirectAttributes redirectAttributes, HttpServletRequest request) {
         if (result.hasErrors()) {
-            String referrer = request.getHeader("referer");
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.partner", result);
             redirectAttributes.addFlashAttribute("partner", partner);
-            return "redirect:" + referrer;
+            return "redirect:" + request.getHeader("referer");
         }
         partnerService.updatePartner(partner);
 
@@ -116,7 +115,7 @@ public class PartnerController {
     public String deleteAction(@PathVariable Integer id, HttpServletRequest request) {
         partnerService.deletePartnerById(id);
 
-        return "redirect:" + request.getHeader("Referer");
+        return "redirect:" + request.getHeader("referer");
     }
 
     @InitBinder

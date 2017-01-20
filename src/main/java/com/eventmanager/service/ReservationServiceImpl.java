@@ -1,6 +1,7 @@
 package com.eventmanager.service;
 
 import com.eventmanager.dao.ReservationDao;
+import com.eventmanager.exception.ReservationException;
 import com.eventmanager.model.Event;
 import com.eventmanager.model.Reservation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,8 +57,17 @@ public class ReservationServiceImpl implements ReservationService {
         }
     }
 
-    public void deleteReservationById(int id) {
-        dao.deleteById(id);
+    public void deleteReservationById(int id) throws ReservationException {
+        Reservation reservation = findById(id);
+        if (!reservation.isConfirmed()) {
+            Event event = reservation.getEvent();
+            event.setFreeAmount(event.getFreeAmount() + reservation.getAmount());
+            dao.deleteById(id);
+            eventService.updateEvent(event);
+        } else {
+            throw new ReservationException("Confirmed reservation can't be deleted");
+        }
+
     }
 
     public Reservation findById(int id) {

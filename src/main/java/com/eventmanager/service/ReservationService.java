@@ -1,5 +1,6 @@
 package com.eventmanager.service;
 
+import com.eventmanager.exception.ReservationException;
 import com.eventmanager.model.Event;
 import com.eventmanager.model.Reservation;
 
@@ -11,7 +12,7 @@ public interface ReservationService {
 
     void updateReservation(Reservation reservation);
 
-    void deleteReservationById(int id);
+    void deleteReservationById(int id) throws ReservationException;
 
     Reservation findById(int id);
 

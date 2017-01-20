@@ -60,9 +60,8 @@ public class ReservationController {
         if (!model.containsAttribute("reservation")) {
             model.addAttribute("reservation", new Reservation());
         }
-        String referrer = request.getHeader("referer");
         model.addAttribute("events", events);
-        model.addAttribute("referrer", referrer);
+        model.addAttribute("referrer", request.getHeader("referer"));
         model.addAttribute("eventPriceMap", eventPriceMap);
 
         return "client/reservation/new";
@@ -71,10 +70,9 @@ public class ReservationController {
     @RequestMapping(value = {"/new"}, method = RequestMethod.POST)
     public String createAction(@Valid Reservation reservation, BindingResult result, final RedirectAttributes redirectAttributes, HttpServletRequest request) {
         if (result.hasErrors()) {
-            String referrer = request.getHeader("referer");
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.reservation", result);
             redirectAttributes.addFlashAttribute("reservation", reservation);
-            return "redirect:" + referrer;
+            return "redirect:" + request.getHeader("referer");
         }
         reservationService.saveReservation(reservation);
 

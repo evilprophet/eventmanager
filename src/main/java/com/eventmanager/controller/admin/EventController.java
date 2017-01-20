@@ -111,10 +111,9 @@ public class EventController {
     @RequestMapping(value = {"/{id}/edit"}, method = RequestMethod.POST)
     public String updateAction(@Valid Event event, BindingResult result, ModelMap model, final RedirectAttributes redirectAttributes, HttpServletRequest request) {
         if (result.hasErrors()) {
-            String referrer = request.getHeader("referer");
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.event", result);
             redirectAttributes.addFlashAttribute("event", event);
-            return "redirect:" + referrer;
+            return "redirect:" + request.getHeader("referer");
         }
         eventService.updateEvent(event);
 
@@ -128,7 +127,7 @@ public class EventController {
     public String deleteAction(@PathVariable Integer id, HttpServletRequest request) {
         eventService.deleteEventById(id);
 
-        return "redirect:" + request.getHeader("Referer");
+        return "redirect:" + request.getHeader("referer");
     }
 
     @InitBinder
