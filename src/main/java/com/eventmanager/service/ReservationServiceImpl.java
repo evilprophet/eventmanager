@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.UUID;
 
 @Service("reservationService")
 @Transactional
@@ -15,13 +17,22 @@ public class ReservationServiceImpl implements ReservationService {
 
     private final ReservationDao dao;
 
+    private final EventService eventService;
+
     @Autowired
-    public ReservationServiceImpl(ReservationDao dao) {
+    public ReservationServiceImpl(ReservationDao dao, EventService eventService) {
         this.dao = dao;
+        this.eventService = eventService;
     }
 
     public void saveReservation(Reservation reservation) {
+        Event event = reservation.getEvent();
+        event.setFreeAmount(event.getFreeAmount() - reservation.getAmount());
+        String uuidBase = reservation.getEmail() + "|" + reservation.getTelephone() + "|" + event.getId() + new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").toString();
+        reservation.setUuid(UUID.nameUUIDFromBytes(uuidBase.getBytes()).toString());
+        reservation.setFinalPrice(reservation.getAmount() * reservation.getEvent().getPrice());
         dao.save(reservation);
+        eventService.updateEvent(event);
     }
 
     /*

@@ -27,13 +27,13 @@ public class EventValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "publishedAt", "NotEmpty.event.publishedAt");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "closedAt", "NotEmpty.event.closedAt");
 
-        if (event.getPrice() <= 0 ) {
+        if (event.getPrice() == null || event.getPrice() <= 0) {
             errors.rejectValue("price", "Zero.event.price");
         }
-        if (event.getAmount() <= 0 ) {
+        if (event.getPrice() == null || event.getAmount() <= 0) {
             errors.rejectValue("amount", "Zero.event.amount");
         }
-        if ( event.getFreeAmount() < 0) {
+        if (event.getPrice() == null || event.getFreeAmount() < 0) {
             errors.rejectValue("freeAmount", "Zero.event.freeAmount");
         }
     }

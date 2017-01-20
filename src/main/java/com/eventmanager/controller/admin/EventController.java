@@ -51,14 +51,16 @@ public class EventController {
 
     @RequestMapping(value = {"/new"}, method = RequestMethod.GET)
     public String newAction(ModelMap model, @RequestParam(value = "partner_id", defaultValue = "-1") Integer partnerId) {
-        Event event = new Event();
-        Partner partner = partnerService.findById(partnerId);
-        if (partner != null) {
-            event.setPartner(partner);
+        if (!model.containsAttribute("event")) {
+            Event event = new Event();
+            Partner partner = partnerService.findById(partnerId);
+            if (partner != null) {
+                event.setPartner(partner);
+            }
+            model.addAttribute("event", event);
         }
         List<Partner> partners = partnerService.findAllPartners();
         model.addAttribute("partners", partners);
-        model.addAttribute("event", event);
 
         return "admin/event/new";
     }
@@ -66,9 +68,9 @@ public class EventController {
     @RequestMapping(value = {"/new"}, method = RequestMethod.POST)
     public String createAction(@Valid Event event, BindingResult result, ModelMap model, final RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
-            List<Partner> partners = partnerService.findAllPartners();
-            model.addAttribute("partners", partners);
-            return "admin/event/new";
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.event", result);
+            redirectAttributes.addFlashAttribute("event", event);
+            return "redirect:/admin/events/new";
         }
         eventService.saveEvent(event);
 
@@ -93,23 +95,26 @@ public class EventController {
 
     @RequestMapping(value = {"/{id}/edit"}, method = RequestMethod.GET)
     public String editAction(@PathVariable Integer id, ModelMap model) {
-        Event event = eventService.findById(id);
-        if (event == null) {
-            return "redirect:/admin/events";
+        if (!model.containsAttribute("event")) {
+            Event event = eventService.findById(id);
+            if (event == null) {
+                return "redirect:/admin/events";
+            }
+            model.addAttribute("event", event);
         }
         List<Partner> partners = partnerService.findAllPartners();
-        model.addAttribute("event", event);
         model.addAttribute("partners", partners);
 
         return "admin/event/edit";
     }
 
     @RequestMapping(value = {"/{id}/edit"}, method = RequestMethod.POST)
-    public String updateAction(@Valid Event event, BindingResult result, ModelMap model, final RedirectAttributes redirectAttributes) {
+    public String updateAction(@Valid Event event, BindingResult result, ModelMap model, final RedirectAttributes redirectAttributes, HttpServletRequest request) {
         if (result.hasErrors()) {
-            List<Partner> partners = partnerService.findAllPartners();
-            model.addAttribute("partners", partners);
-            return "admin/event/edit";
+            String referrer = request.getHeader("referer");
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.event", result);
+            redirectAttributes.addFlashAttribute("event", event);
+            return "redirect:" + referrer;
         }
         eventService.updateEvent(event);
 

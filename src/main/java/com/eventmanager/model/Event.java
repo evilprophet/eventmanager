@@ -33,7 +33,7 @@ public class Event implements Serializable {
     private Integer freeAmount;
 
     @Column(name = "price", nullable = false)
-    private Float price;
+    private Double price;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @Column(name = "event_date", nullable = false)
@@ -47,7 +47,7 @@ public class Event implements Serializable {
     @Column(name = "closed_at", nullable = false)
     private Date closedAt;
 
-    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "event", cascade = CascadeType.ALL)
     private List<Reservation> reservations;
 
     public Integer getId() {
@@ -101,11 +101,11 @@ public class Event implements Serializable {
         this.freeAmount = freeAmount;
     }
 
-    public Float getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

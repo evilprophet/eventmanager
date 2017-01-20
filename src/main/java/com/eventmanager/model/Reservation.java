@@ -1,10 +1,10 @@
 package com.eventmanager.model;
 
-import com.sun.istack.NotNull;
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.UUID;
 
 @Entity
 @Table(name = "reservations")
@@ -18,41 +18,38 @@ public class Reservation implements Serializable {
     @JoinColumn(name = "event_id")
     private Event event;
 
-    @NotEmpty
     @Column(name = "uuid", nullable = false)
     private String uuid;
 
-    @NotNull
     @Column(name = "reservation_key", nullable = false)
     private String reservationKey;
 
-    @NotEmpty
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @NotEmpty
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @NotEmpty
+    @Email
     @Column(name = "email", nullable = false)
     private String email;
 
-    @NotEmpty
     @Column(name = "telephone", nullable = false)
     private String telephone;
 
-    @NotNull
     @Column(name = "amount", nullable = false)
     private Integer amount;
 
-    @NotNull
     @Column(name = "final_price", nullable = false)
-    private Float finalPrice;
+    private Double finalPrice;
 
-    @NotNull
     @Column(name = "confirmed", nullable = false)
     private Boolean confirmed;
+
+    public Reservation(){
+        confirmed = false;
+        reservationKey = null;
+    }
 
     public Integer getId() {
         return id;
@@ -129,11 +126,11 @@ public class Reservation implements Serializable {
         this.amount = amount;
     }
 
-    public Float getFinalPrice() {
+    public Double getFinalPrice() {
         return finalPrice;
     }
 
-    public void setFinalPrice(Float finalPrice) {
+    public void setFinalPrice(Double finalPrice) {
         this.finalPrice = finalPrice;
     }
 

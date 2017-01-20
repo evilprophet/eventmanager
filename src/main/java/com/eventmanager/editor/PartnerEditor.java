@@ -16,8 +16,8 @@ public class PartnerEditor extends PropertyEditorSupport {
     @Override
     public void setAsText(String text) {
         Integer id = Integer.parseInt(text);
-        Partner p = partnerService.findById(id);
-        this.setValue(p);
+        Partner partner = partnerService.findById(id);
+        this.setValue(partner);
     }
 
 }

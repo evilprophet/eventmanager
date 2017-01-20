@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface EventService {
 
-    void saveEvent(Event user);
+    void saveEvent(Event event);
 
-    void updateEvent(Event user);
+    void updateEvent(Event event);
 
     void deleteEventById(int id);
 

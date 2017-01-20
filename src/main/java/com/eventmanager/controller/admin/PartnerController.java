@@ -47,8 +47,10 @@ public class PartnerController {
 
     @RequestMapping(value = {"/new"}, method = RequestMethod.GET)
     public String newAction(ModelMap model) {
-        Partner partner = new Partner();
-        model.addAttribute("partner", partner);
+        if (!model.containsAttribute("partner")) {
+            Partner partner = new Partner();
+            model.addAttribute("partner", partner);
+        }
 
         return "admin/partner/new";
     }
@@ -56,7 +58,9 @@ public class PartnerController {
     @RequestMapping(value = {"/new"}, method = RequestMethod.POST)
     public String createAction(@Valid Partner partner, BindingResult result, final RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
-            return "admin/partner/new";
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.partner", result);
+            redirectAttributes.addFlashAttribute("partner", partner);
+            return "redirect:/admin/partners/new";
         }
         partnerService.savePartner(partner);
 
@@ -81,19 +85,24 @@ public class PartnerController {
 
     @RequestMapping(value = {"/{id}/edit"}, method = RequestMethod.GET)
     public String editAction(@PathVariable Integer id, ModelMap model) {
-        Partner partner = partnerService.findById(id);
-        if (partner == null) {
-            return "redirect:/admin/partners";
+        if (!model.containsAttribute("partner")) {
+            Partner partner = partnerService.findById(id);
+            if (partner == null) {
+                return "redirect:/admin/partners";
+            }
+            model.addAttribute("partner", partner);
         }
-        model.addAttribute("partner", partner);
 
         return "admin/partner/edit";
     }
 
     @RequestMapping(value = {"/{id}/edit"}, method = RequestMethod.POST)
-    public String updateAction(@Valid Partner partner, BindingResult result, final RedirectAttributes redirectAttributes) {
+    public String updateAction(@Valid Partner partner, BindingResult result, final RedirectAttributes redirectAttributes, HttpServletRequest request) {
         if (result.hasErrors()) {
-            return "admin/partner/edit";
+            String referrer = request.getHeader("referer");
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.partner", result);
+            redirectAttributes.addFlashAttribute("partner", partner);
+            return "redirect:" + referrer;
         }
         partnerService.updatePartner(partner);
 
