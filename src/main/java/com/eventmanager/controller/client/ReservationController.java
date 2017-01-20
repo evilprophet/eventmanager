@@ -83,6 +83,8 @@ public class ReservationController {
 
         redirectAttributes.addFlashAttribute("css", "success");
         redirectAttributes.addFlashAttribute("msg", "Registered successfully");
+        redirectAttributes.addFlashAttribute("uuid", reservation.getUuid());
+        redirectAttributes.addFlashAttribute("eventName", reservation.getEvent().getName());
 
         return "redirect:/";
     }
