@@ -11,10 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -89,6 +86,18 @@ public class ReservationController {
         return "redirect:/";
     }
 
+    @RequestMapping(value = {"/{uuid}"}, method = RequestMethod.GET)
+    public String showAction(@PathVariable String uuid, ModelMap model) {
+        Reservation reservation = reservationService.findByUuid(uuid);
+        if (reservation == null) {
+            return "redirect:/";
+        }
+        reservation.confirm();
+        reservationService.updateReservation(reservation);
+        model.addAttribute("reservation", reservation);
+
+        return "client/reservation/show";
+    }
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {

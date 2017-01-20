@@ -144,7 +144,7 @@ public class Reservation implements Serializable {
 
     public void confirm() {
         this.confirmed = true;
-        this.reservationKey = "test";
+        this.reservationKey = this.uuid.split("-")[0];
     }
 
     public String getFullName() {
