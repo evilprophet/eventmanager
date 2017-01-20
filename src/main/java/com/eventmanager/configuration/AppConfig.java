@@ -6,6 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.core.Ordered;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.view.JstlView;
 @Import({JpaConfiguration.class, SecurityConfig.class})
 @EnableWebMvc
 @ComponentScan(basePackages = "com.eventmanager")
+@ComponentScan("org.springframework.security.samples.mvc")
 public class AppConfig extends WebMvcConfigurerAdapter {
 
     /**
@@ -54,6 +56,12 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     @Override
     public void configurePathMatch(PathMatchConfigurer matcher) {
         matcher.setUseRegisteredSuffixPatternMatch(true);
+    }
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/admin/login").setViewName("admin/app/login");
+        registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
     }
 
 }
