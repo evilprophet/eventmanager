@@ -14,16 +14,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().
+                antMatchers("/").permitAll().
                 antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')").
                 and().formLogin().
-                loginPage("/customLogin.jsp").
-                loginProcessingUrl("/appLogin").
-                usernameParameter("app_username").
-                passwordParameter("app_password").
-                defaultSuccessUrl("/admin/").
-                and().logout().    //logout configuration
-                logoutUrl("/appLogout").
-                logoutSuccessUrl("/customLogin.jsp");
+                //loginPage("/login").
+        //loginProcessingUrl("/appLogin").
+        and().logout().logoutUrl("/admin/logout").logoutSuccessUrl("/");
+        http.csrf().disable();
     }
 
     @Autowired

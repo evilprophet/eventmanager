@@ -4,6 +4,8 @@
     <article class="container-fluid">
         <div class="panel panel-default">
             <div class="panel-heading clearfix">
+                <a class="btn btn-link btn-sm pull-right" data-dismiss="modal" aria-label="Close"
+                   href=<c:url value='/admin'/>>Login</a>
             </div>
             <div class="panel-body">
                 <h1 class="text-center">Welcome in EventManager</h1>

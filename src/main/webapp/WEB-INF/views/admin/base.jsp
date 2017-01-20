@@ -20,7 +20,9 @@
     </c:if>
     <div class="panel panel-default">
         <div class="panel-heading clearfix">
-            <h5>Admin Panel</h5>
+            <h5 class="col-md-2">Admin Panel</h5>
+            <a class="btn btn-link btn-sm pull-right" data-dismiss="modal" aria-label="Close"
+               href=<c:url value='/admin/logout'/>>Logout</a>
         </div>
         <div class="panel-body">
             <ul class="nav nav-pills">
