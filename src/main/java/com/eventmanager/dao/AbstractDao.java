@@ -15,8 +15,7 @@ public abstract class AbstractDao<PK extends Serializable, T> {
     }
 
     @PersistenceContext
-    private
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     protected EntityManager getEntityManager() {
         return this.entityManager;

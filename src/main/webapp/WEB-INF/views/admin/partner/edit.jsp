@@ -12,7 +12,6 @@
             </div>
             <div class="panel-body">
                 <form:form method="POST" modelAttribute="partner" class="form-horizontal">
-                    <form:input type="hidden" path="id" id="id"/>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Id</label>
                         <div class="col-sm-5">

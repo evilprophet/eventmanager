@@ -4,10 +4,13 @@ import com.eventmanager.model.Event;
 import com.eventmanager.model.Partner;
 import com.eventmanager.service.EventService;
 import com.eventmanager.service.PartnerService;
+import com.eventmanager.validator.PartnerValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,10 +28,13 @@ public class PartnerController {
 
     private final EventService eventService;
 
+    private final PartnerValidator partnerValidator;
+
     @Autowired
-    public PartnerController(PartnerService partnerService, EventService eventService) {
+    public PartnerController(PartnerService partnerService, EventService eventService, PartnerValidator partnerValidator) {
         this.partnerService = partnerService;
         this.eventService = eventService;
+        this.partnerValidator = partnerValidator;
     }
 
     @RequestMapping(value = {"", "/", "/index"}, method = RequestMethod.GET)
@@ -102,5 +108,10 @@ public class PartnerController {
         partnerService.deletePartnerById(id);
 
         return "redirect:" + request.getHeader("Referer");
+    }
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.addValidators(partnerValidator);
     }
 }

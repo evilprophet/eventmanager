@@ -1,6 +1,7 @@
 package com.eventmanager.model;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,31 +15,27 @@ public class Partner implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotEmpty
     @Column(name = "name", unique = true, nullable = false)
     private String name;
 
-    @NotEmpty
     @Column(name = "description", nullable = false)
     private String description;
 
-    @NotEmpty
+    @URL
     @Column(name = "website", nullable = false)
     private String website;
 
-    @NotEmpty
     @Column(name = "address", nullable = false)
     private String address;
 
-    @NotEmpty
     @Column(name = "telephone", nullable = false)
     private String telephone;
 
-    @NotEmpty
+    @Email
     @Column(name = "email", nullable = false)
     private String email;
 
-    @OneToMany(mappedBy="partner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "partner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Event> events;
 
     public Integer getId() {

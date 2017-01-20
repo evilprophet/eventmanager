@@ -7,6 +7,7 @@ import com.eventmanager.model.Reservation;
 import com.eventmanager.service.EventService;
 import com.eventmanager.service.PartnerService;
 import com.eventmanager.service.ReservationService;
+import com.eventmanager.validator.EventValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -30,11 +31,14 @@ public class EventController {
 
     private final ReservationService reservationService;
 
+    private final EventValidator eventValidator;
+
     @Autowired
-    public EventController(ReservationService reservationService, PartnerService partnerService, EventService eventService) {
+    public EventController(ReservationService reservationService, PartnerService partnerService, EventService eventService, EventValidator eventValidator) {
         this.reservationService = reservationService;
         this.partnerService = partnerService;
         this.eventService = eventService;
+        this.eventValidator = eventValidator;
     }
 
     @RequestMapping(value = {"", "/", "/index"}, method = RequestMethod.GET)
@@ -101,8 +105,10 @@ public class EventController {
     }
 
     @RequestMapping(value = {"/{id}/edit"}, method = RequestMethod.POST)
-    public String updateAction(@ModelAttribute("event") Event event, BindingResult result, final RedirectAttributes redirectAttributes) {
+    public String updateAction(@Valid Event event, BindingResult result, ModelMap model, final RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
+            List<Partner> partners = partnerService.findAllPartners();
+            model.addAttribute("partners", partners);
             return "admin/event/edit";
         }
         eventService.updateEvent(event);
@@ -121,7 +127,8 @@ public class EventController {
     }
 
     @InitBinder
-    public void initDataBinder(WebDataBinder binder) {
+    public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(Partner.class, new PartnerEditor(partnerService));
+        binder.addValidators(eventValidator);
     }
 }

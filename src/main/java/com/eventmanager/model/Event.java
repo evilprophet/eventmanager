@@ -1,10 +1,9 @@
 package com.eventmanager.model;
 
-import com.sun.istack.NotNull;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -21,37 +20,29 @@ public class Event implements Serializable {
     @JoinColumn(name = "partner_id")
     private Partner partner;
 
-    @NotEmpty
     @Column(name = "name", nullable = false)
     private String name;
 
-    @NotEmpty
     @Column(name = "description", nullable = false)
     private String description;
 
-    @NotNull
     @Column(name = "amount", nullable = false)
     private Integer amount;
 
-    @NotNull
     @Column(name = "free_amount", nullable = false)
     private Integer freeAmount;
 
-    @NotNull
     @Column(name = "price", nullable = false)
     private Float price;
 
-    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @Column(name = "event_date", nullable = false)
     private Date eventDate;
 
-    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @Column(name = "published_at", nullable = false)
     private Date publishedAt;
 
-    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @Column(name = "closed_at", nullable = false)
     private Date closedAt;
